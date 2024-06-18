@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fade Carousel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .carousel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    max-width: 1400px;
+    background-color: #f0f0f000;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  }
+
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            position: relative;
+            left: 0;
+            height: 500px;
+            margin-top: 3.5%;
+            width: 500px;
+            margin-bottom: 5%;
+        }
+
+        .container {
+            min-width: 400px; /* Increased width */
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-out; /* Add opacity and ease-out transition */
+            border-radius: 10px;
+            background-color: #ffffff;
+            margin: 0 10px;
+            overflow: hidden;
+            box-sizing: border-box;
+            visibility: hidden; /* Hide containers by default */
+        }
+
+        .container.active {
+            opacity: 1;
+            transform: scale(1.1);
+            z-index: 2;
+            border: 2px solid #007BFF; /* Add border to active container */
+            visibility: visible; /* Show the active container */
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.5); /* Add a glow effect */
+        }
+
+        .container img {
+            width: 100px; /* Adjust image width */
+            height: auto;
+            margin-top: 20px; /* Add some top margin to the image */
+            border-radius: 100%;
+
+        }
+
+        .student-info {
+            margin-top: 20px; /* Add margin to the student info */
+        }
+
+        .details {
+            margin-top: 16px;
+        }
+
+        .details h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .details p {
+            margin: 8px 0 0;
+            color: #555;
+        }
+
+        .buttons12 {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            
+        }
+
+        .buttons12 button {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .buttons12 button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel" id="carousel">
+        <div class="buttons12">
+            <button id="prev">❮</button>
+            <button id="next">❯</button>
+        </div>
+        <div class="carousel-container" id="carousel-container">
+            <div class="container">
+                <img src="galaxy.jpeg" alt="Company Logo">
+                <div class="student-info">
+                    <h3>John Doe</h3>
+                    <p>Computer Science student</p>
+                </div>
+                <div class="details">
+                    <h3>Project Title1</h3>
+                    <p>Details about the project.</p>
+                </div>
+            </div>
+            <div class="container">
+                <img src="Artificial.jpeg" alt="Company Logo">
+                <div class="student-info">
+                    <h3>Mohan</h3>
+                    <p>Medical</p>
+                </div>
+                <div class="details">
+                    <h3>Project Title2</h3>
+                    <p>Details about the project.</p>
+                </div>
+            </div>
+            <div class="container">
+                <img src="mainrobo.png" alt="Company Logo">
+                <div class="student-info">
+                    <h3>Microsoft</h3>
+                    <p>Computer Science student</p>
+                </div>
+                <div class="details">
+                    <h3>Project Title3</h3>
+                    <p>Details about the project.</p>
+                </div>
+            </div>
+            <div class="container">
+                <img src="Andriod.jpeg" alt="Company Logo">
+                <div class="student-info">
+                    <h3>John Doe</h3>
+                    <p>Computer Science student</p>
+                </div>
+                <div class="details">
+                    <h3>Project Title4</h3>
+                    <p>Details about the project.</p>
+                </div>
+            </div>
+            <div class="container">
+                <img src="Medical.jpeg" alt="Company Logo">
+                <div class="student-info">
+                    <h3>John Doe</h3>
+                    <p>Computer Science student</p>
+                </div>
+                <div class="details">
+                    <h3>Project Title5</h3>
+                    <p>Details about the project.</p>
+                </div>
+            </div>
+            <div class="container">
+                <img src="Leftdoor.png" alt="Company Logo">
+                <div class="student-info">
+                    <h3>John Doe</h3>
+                    <p>Computer Science student</p>
+                </div>
+                <div class="details">
+                    <h3>Project Title5</h3>
+                    <p>Details about the project.</p>
+                </div>
+            </div>
+            <div class="container">
+                <img src="Rightdoor2.png" alt="Company Logo">
+                <div class="student-info">
+                    <h3>John Doe</h3>
+                    <p>Computer Science student</p>
+                </div>
+                <div class="details">
+                    <h3>Project Title5</h3>
+                    <p>Details about the project.</p>
+                </div>
+            </div>
+            <!-- Repeat for other containers -->
+            <!-- Add more containers here -->
+        </div>
+    </div>
+    <script>
+        let currentIndex = 0;
+        const carouselContainer = document.getElementById('carousel-container');
+        const containers = carouselContainer.children;
+        const totalContainers = containers.length;
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        let interval;
+
+        function showNextContainer() {
+            currentIndex = (currentIndex + 1) % totalContainers;
+            updateCarousel();
+        }
+
+        function showPrevContainer() {
+            currentIndex = (currentIndex - 1 + totalContainers) % totalContainers;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const offset = -(currentIndex * 420) + 250; // Update offset based on new container width
+            carouselContainer.style.transition = 'transform 0.5s ease-out';
+            carouselContainer.style.transform = `translateX(${offset}px)`;
+
+            updateOpacity();
+        }
+
+        function updateOpacity() {
+            for (let i = 0; i < totalContainers; i++) {
+                containers[i].classList.remove('active');
+                containers[i].style.opacity = 0;
+                containers[i].style.visibility = 'hidden'; // Hide non-active containers
+            }
+            containers[currentIndex].classList.add('active');
+            containers[currentIndex].style.opacity = 1;
+            containers[currentIndex].style.visibility = 'visible'; // Show the active container
+        }
+
+        interval = setInterval(showNextContainer, 3000);
+
+        prevButton.addEventListener('click', () => {
+            clearInterval(interval);
+            showPrevContainer();
+            interval = setInterval(showNextContainer, 3000);
+        });
+
+        nextButton.addEventListener('click', () => {
+            clearInterval(interval);
+            showNextContainer();
+            interval = setInterval(showNextContainer, 3000);
+        });
+
+        updateOpacity(); // Initial call to set the correct opacity for the starting index
+        updateCarousel(); // Initial call to set the correct position for the starting index
+    </script>
+</body>
+</html>

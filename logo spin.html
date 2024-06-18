@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rotating Logos</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0; /* Light gray background */
+  }
+  .smooth-transition {
+    position: absolute;
+    right: -100%; /* Start the element outside of the viewport */
+    top: 50%; /* Adjust vertical position as needed */
+    transition: right 2s ease-in-out; /* Smooth transition for right property */
+  }
+  
+  .outer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    max-width: 1200px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .logos-container {
+    position: relative;
+    width: 45%;
+    height: 400px;
+    background-color: #000000;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+  }
+
+  .text-container {
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .text {
+    font-size: 24px;
+    color: #333333;
+  }
+
+  .inner-container {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    transition: transform 4s ease; /* Add smooth transition for logo scaling */
+  }
+
+  .logo:hover {
+    transform: scale(1.2);
+  }
+</style>
+</head>
+<body>
+<div class="smooth-transition"> <!-- Add smooth-transition class to the outer container -->
+  <div class="outer-container">
+    <div class="logos-container">
+      <div class="inner-container" style="left: 210px; top: 210px;">
+        <img src="C:\Users\rajsi\Desktop\First website\Images\IOT.jpeg" class="logo" id="logo1">
+      </div>
+      <div class="inner-container" style="left: 210px; top: 210px;">
+        <img src="C:\Users\rajsi\Desktop\First website\Images\MDC.jpeg" class="logo" id="logo2">
+      </div>
+      <div class="inner-container" style="left: 210px; top: 210px;">
+        <img src="C:\Users\rajsi\Desktop\First website\Images\webdev.jpeg" class="logo" id="logo3">
+      </div>
+      <div class="inner-container" style="left: 210px; top: 210px;">
+        <img src="C:\Users\rajsi\Desktop\First website\Images\2.jpeg" class="logo" id="logo4">
+      </div>
+      <div class="inner-container" style="left: 210px; top: 210px;">
+        <img src="C:\Users\rajsi\Desktop\First website\Images\3.jpeg" class="logo" id="logo5">
+      </div>
+      <div class="inner-container" style="left: 210px; top: 210px;">
+        <img src="C:\Users\rajsi\Desktop\First website\Images\4.jpeg" class="logo" id="logo6">
+      </div>
+    </div>
+    <div class="text-container">
+      <div class="text">
+        <h2>Do you want to Update your skills ?</h2>
+      </div>
+      <p><h3>We provide the best mentorship, guidance, and support to help you grow and excel in your domain. Our dedicated team is committed to ensuring that you receive the personalized attention and resources needed to thrive. With our comprehensive approach, we empower you to overcome challenges, seize opportunities, and reach your fullest potential. Whether you're just starting your journey or looking to advance in your field, our goal is to be your trusted partner every step of the way.</h3></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Smoothly transition the appearance of the smooth-transition class from right to left
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.querySelector('.smooth-transition').style.right = '0'; // Slide in from the right
+    }, 500); // Delay the transition for 0.5 seconds
+  });
+  setInterval(() => {
+    let currentTime = new Date();
+    let seconds = parseFloat(currentTime.getSeconds()) + parseFloat(currentTime.getMilliseconds()) / 1100;
+    let radians = (2 * Math.PI * seconds) / 60;
+    let radius = 120;
+    let containers = document.querySelectorAll('.inner-container');
+    let angleIncrement = (2 * Math.PI) / containers.length;
+    let center = { x: 0, y: -40 }; // Center of black container
+    
+    containers.forEach((container, index) => {
+      let currentAngle = angleIncrement * index;
+      let x = center.x + radius * Math.cos(radians + currentAngle);
+      let y = center.y + radius * Math.sin(radians + currentAngle);
+      container.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  }, 10);
+</script>
+</body>
+</html>

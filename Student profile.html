@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #app {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 450px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+
+        .profile-section {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0 2px;
+            color: #495057;
+            font-weight: bold;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .profile-pic {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border: 3px solid #ced4da;
+            margin-bottom: 10px;
+        }
+
+        #profile-pic-input {
+            display: none;
+        }
+
+        #profile-pic-label {
+            display: inline-block;
+            cursor: pointer;
+            color: #007BFF;
+            margin-top: 10px;
+        }
+
+        #profile-pic-label:hover {
+            text-decoration: underline;
+        }
+
+        .form-group-half {
+            width: 48%;
+            display: inline-block;
+        }
+
+        .form-group-half:first-child {
+            margin-right: 4%;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Student Profile</h1>
+        <div class="profile-section">
+            <img id="profile-pic" class="profile-pic" src="default-profile.png" alt="Profile Picture">
+            <label for="profile-pic-input" id="profile-pic-label">Change Profile Picture</label>
+            <input type="file" id="profile-pic-input" accept="image/*">
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="full-name">Full Name:</label>
+                    <input type="text" id="full-name" name="fullName" required>
+                </div>
+                <div class="form-group-half">
+                    <label for="stream">Stream:</label>
+                    <input type="text" id="stream" name="stream" required>
+                </div>
+                <div class="form-group-half">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group-half">
+                    <label for="student-phone">Student Phone:</label>
+                    <input type="tel" id="student-phone" name="studentPhone" required>
+                </div>
+                <div class="form-group-half">
+                    <label for="parent-phone">Parent Phone:</label>
+                    <input type="tel" id="parent-phone" name="parentPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <button type="submit">Save Profile</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Sample initial profile data, this would typically be fetched from a backend API
+        const initialProfileData = {
+            fullName: 'John Doe',
+            stream: 'Science',
+            email: 'john.doe@example.com',
+            studentPhone: '123-456-7890',
+            parentPhone: '098-765-4321',
+            address: '123 Main St, Hometown, USA',
+            profilePic: 'default-profile.png'
+        };
+
+        // Function to load profile data into the form
+        function loadProfileData() {
+            document.getElementById('full-name').value = initialProfileData.fullName;
+            document.getElementById('stream').value = initialProfileData.stream;
+            document.getElementById('email').value = initialProfileData.email;
+            document.getElementById('student-phone').value = initialProfileData.studentPhone;
+            document.getElementById('parent-phone').value = initialProfileData.parentPhone;
+            document.getElementById('address').value = initialProfileData.address;
+            document.getElementById('profile-pic').src = initialProfileData.profilePic;
+        }
+
+        // Function to save profile data
+        document.getElementById('profile-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const updatedProfileData = {
+                fullName: document.getElementById('full-name').value,
+                stream: document.getElementById('stream').value,
+                email: document.getElementById('email').value,
+                studentPhone: document.getElementById('student-phone').value,
+                parentPhone: document.getElementById('parent-phone').value,
+                address: document.getElementById('address').value,
+                profilePic: document.getElementById('profile-pic').src
+            };
+
+            // Simulate saving data to backend (e.g., using fetch to POST/PUT data)
+            console.log('Profile data saved:', updatedProfileData);
+
+            // Optionally, show a success message or perform further actions
+            alert('Profile data saved successfully!');
+        });
+
+        // Function to handle profile picture change
+        document.getElementById('profile-pic-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    document.getElementById('profile-pic').src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Load initial profile data on page load
+        loadProfileData();
+    </script>
+</body>
+</html>

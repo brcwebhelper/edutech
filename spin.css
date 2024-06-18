@@ -1,0 +1,70 @@
+.smooth-transition {
+    position: absolute;
+    right: -100%; /* Start the element outside of the viewport */
+    top: 50%; /* Adjust vertical position as needed */
+    transition: right 2s ease-in-out; /* Smooth transition for right property */
+}
+
+.outer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    max-width: 1200px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.logos-container {
+    position: relative;
+    width: 45%;
+    height: 400px;
+    background-color: #000000;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+}
+
+.text-container {
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+}
+
+.text {
+    font-size: 24px;
+    color: #333333;
+}
+
+.inner-container {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    transition: transform 4s ease; /* Add smooth transition for logo scaling */
+}
+
+.logo:hover {
+    transform: scale(1.2);
+}

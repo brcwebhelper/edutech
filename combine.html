@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Page</title>
+    <style>
+        /* For phone mode */
+@media screen and (max-width: 800px) {
+    /* Adjust styles for phone mode */
+}
+
+/* For laptop mode */
+@media screen and (min-width: 601px) {
+    /* Adjust styles for laptop mode */
+}
+        /* Common styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* First part styles */
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #1e1e1e;
+            border-radius: 15px;
+            padding: 10px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            animation: slideDown 1s ease-out;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            margin-left: 20px;
+        }
+
+        .logo img {
+            width: 100px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover::before {
+            width: 100%;
+            left: 0;
+        }
+
+        nav a:hover {
+            color: #ff0;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .text-container h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .buttons button {
+            background-color: #1e1e1e;
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #ff0;
+            color: #000;
+        }
+
+        .container {
+            position: relative;
+            animation: moveRobot 5s ease-in-out infinite;
+        }
+
+        .robot-image {
+            width: 600px; /* Adjust the size as needed */
+        }
+
+        .question-mark {
+            position: absolute;
+            transform: translateX(-50%);
+            font-size: 90px; /* Adjust the size as needed */
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+            animation: rotate 4s linear infinite, glow 1.5s ease-in-out infinite alternate, float 3s ease-in-out infinite;
+            cursor: pointer; /* Change cursor to pointer on hover */
+        }
+
+        .question-mark.line-1 {
+            top: 65px; /* Adjust the position as needed */
+            left: 355px; /* Adjust the position as needed */
+        }
+
+        @keyframes rotate {
+            from {
+                transform: translateX(-50%) rotate3d(0, 1, 0, 0deg);
+            }
+            to {
+                transform: translateX(-50%) rotate3d(0, 1, 0, 360deg);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        @keyframes moveRobot {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(50px);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: translateX(-50%) rotate(0deg);
+            }
+            to {
+                transform: translateX(-50%) rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Second part styles */
+        .second-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+            background-image: url("C:/Users/rajsi/Downloads/back.jpeg"); /* Replace with your actual background image path */
+            background-size: cover;
+            overflow: hidden;
+            animation: slideIn 1s ease-out;
+        }
+
+        .left-door,
+        .right-door {
+            width
+: 50%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            transition: transform 0.5s ease;
+        }
+
+        .left-door {
+            left: 0;
+            background: url(Leftdoor.png) no-repeat center;
+            background-size: cover;
+        }
+
+        .right-door {
+            right: 0;
+            background: url(Rightdoor2.png) no-repeat center;
+            background-size: cover;
+        }
+
+        #openButton {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            width: 50px; /* Adjust button size */
+            height: 50px; /* Adjust button size */
+            padding: 0;
+            border-radius: 50%;
+            background-color: #cccccc;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #openButton:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.5); /* Add a shine effect */
+        }
+
+        #openButton:active {
+            transform: translateY(-50%) scale(1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .courses-container {
+            display: none; /* Initially hide course container */
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px; /* Adjust spacing */
+        }
+
+        .courses-container.show {
+            display: flex; /* Show course container when doors are open */
+        }
+
+        .course-card {
+            width: 300px; /* Adjust card width */
+            height: 400px; /* Adjust card height */
+            margin: 0 10px; /* Adjust spacing between cards */
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            display: none; /* Initially hide course cards */
+        }
+
+        .course-card.show {
+            display: block; /* Show course cards when needed */
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 60%;
+            background-size: cover;
+            background-position: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .course-info {
+            padding: 40px;
+        }
+
+        .course-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .course-cost {
+            font-size: 16px;
+            color: #666666;
+        }
+
+        .arrow-container {
+            display: none; /* Initially hide arrow container */
+            position: absolute;
+            top: 50%;
+            left:30%;
+            width: 40%;
+            transform: translateY(-50%);
+        }
+
+        .arrow-container.show {
+            display: flex; /* Show arrow container when doors are open */
+            justify-content: space-between;
+        }
+
+        .arrow {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .arrow:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll animation */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- First part of the page -->
+    <div class="header-container">
+        <header>
+            <div class="logo">
+                <img src="path/to/company-logo.png" alt="Company Logo">
+            </div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#courses">Courses</a>
+                <a href="#about">About</a>
+                <a href="#login">Login</a>
+                <a href="#signup">Signup</a>
+            </nav>
+        </header>
+    </div>
+    <div class="content-container">
+        <div class="text-container">
+            <h1>Want help in career?</h1>
+            <p>We are dedicated to guiding India's future by helping individuals make the right career choices. 
+                          Let's explore how we can assist you in navigating your career path and what steps you can take to ensure your professional success.</p>
+            <div class="buttons">
+                <button onclick="scrollToSecondPart()">Yes</button>
+                <button>No</button>
+            </div>
+        </div>
+        <div class="container">
+            <img src="C:\Users\rajsi\Desktop\First website\1.png" alt="Futuristic Robot" class="robot-image">
+            <div class="question-mark line-1">?</div>
+        </div>
+    </div>
+
+    <!-- Second part of the page -->
+    <div class="second-container" id="courses">
+        <div class="left-door"></div>
+        <div class="right-door"></div>
+        <button id="openButton">O</button>
+        
+        <div class="courses-container">
+            <div class="course-card show">
+                <div class="course-image" style="background-image: url('C:/Users/rajsi/Desktop/First website/Images/MDC.jpeg');
+"></div>
+                <div class="course-info">
+                    <div class="course-name">Medical Coding</div>
+                    <div class="course-cost">₹5000</div>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-image" style="background-image: url('C:/Users/rajsi/Desktop/First website/Images/Android.jpeg');"></div>
+                <div class="course-info">
+                    <div class="course-name">Android Development</div>
+                    <div class="course-cost">₹5000</div>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-image" style="background-image: url('C:/Users/rajsi/Desktop/First website/Images/ML.jpeg');"></div>
+                <div class="course-info">
+                    <div class="course-name">Machine Learning</div>
+                    <div class="course-cost">₹5000</div>
+                </div>
+            </div>
+        </div>
+        <div class="arrow-container">
+            <button class="arrow arrow-left">&#10094;</button>
+            <button class="arrow arrow-right">&#10095;</button>
+        </div>
+    </div>
+
+    <!-- Scroll to second part on Yes button click -->
+    <script>
+        function scrollToSecondPart() {
+            const secondPart = document.getElementById("courses");
+            secondPart.scrollIntoView({ behavior: "smooth" });
+
+
+
+
+        }
+
+
+        document.getElementById('openButton').addEventListener('click', function() {
+            var leftDoor = document.querySelector('.left-door');
+            var rightDoor = document.querySelector('.right-door');
+            var coursesContainer = document.querySelector('.courses-container');
+            var arrowContainer = document.querySelector('.arrow-container');
+
+            if (leftDoor.style.transform === "translateX(0%)") {
+                leftDoor.style.transform = "translateX(-100%)";
+                rightDoor.style.transform = "translateX(100%)";
+                coursesContainer.classList.add('show');
+                arrowContainer.classList.add('show');
+            } else {
+                leftDoor.style.transform = "translateX(0%)";
+                rightDoor.style.transform = "translateX(0%)";
+                coursesContainer.classList.remove('show');
+                arrowContainer.classList.remove('show');
+            }
+        });
+        // Function to close the doors
+function closeDoors() {
+    var leftDoor = document.querySelector('.left-door');
+    var rightDoor = document.querySelector('.right-door');
+    var coursesContainer = document.querySelector('.courses-container');
+    var arrowContainer = document.querySelector('.arrow-container');
+
+    leftDoor.style.transform = "translateX(-100%)";
+    rightDoor.style.transform = "translateX(100%)";
+    coursesContainer.classList.remove('show');
+    arrowContainer.classList.remove('show');
+}
+
+// Event listener for scrolling
+window.addEventListener('scroll', function() {
+    // Call the closeDoors function when the page is scrolled
+    closeDoors();
+});
+
+
+        var courseCards = document.querySelectorAll('.course-card');
+        var currentIndex = 0;
+
+        function showCourse(index) {
+            for (var i = 0; i < courseCards.length; i++) {
+                courseCards[i].classList.remove('show');
+            }
+            courseCards[index].classList.add('show');
+        }
+
+        document.querySelector('.arrow-left').addEventListener('click', function() {
+            currentIndex = (currentIndex === 0) ? courseCards.length - 1 : currentIndex - 1;
+            showCourse(currentIndex);
+        });
+
+        document.querySelector('.arrow-right').addEventListener('click', function() {
+            currentIndex = (currentIndex === courseCards.length - 1) ? 0 : currentIndex + 1;
+            showCourse(currentIndex);
+        });
+ // Function to close the doors
+function closeDoors() {
+    var leftDoor = document.querySelector('.left-door');
+    var rightDoor = document.querySelector('.right-door');
+    var coursesContainer = document.querySelector('.courses-container');
+    var arrowContainer = document.querySelector('.arrow-container');
+
+    leftDoor.style.transform = "translateX(-100%)";
+    rightDoor.style.transform = "translateX(100%)";
+    coursesContainer.classList.remove('show');
+    arrowContainer.classList.remove('show');
+}
+
+// Event listener for scrolling
+window.addEventListener('scroll', function() {
+    // Call the closeDoors function when the page is scrolled
+    closeDoors();
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTech Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+
+      
+        }
+
+        #floating-image {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: url('C:/Users/rajsi/Downloads/chatbot robo.png') no-repeat center center;
+            background-size: cover;
+    cursor: pointer;
+    animation: glow 2s ease-in-out infinite alternate, floatUpDown 6s infinite alternate, floatLeftRight 25s forwards;
+    z-index: 1000;
+    filter: drop-shadow(0 0 10px pink) brightness(110%);
+        }
+
+        #floating-image:hover {
+           animation-play-state: paused; 
+          filter: (110%); /* Increased glow on hover */
+    transform: scale(1.1); /* Zoom effect on hover */
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% {
+                bottom: 0;
+            }
+            50% {
+                bottom: 110px;
+            }
+        }
+
+        @keyframes floatLeftRight {
+            0% {
+                left: 0;
+            }
+            50% {
+                left: calc(100% - 100px);
+            }
+            100% {
+                left: calc(100% - 100px);
+                bottom: 20px;
+            }
+        }
+
+        #chat-container {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            color: #fff;
+            z-index: 1000;
+            flex-direction: column;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        #chat-box {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        #chat-log {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ccc;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat, linear-gradient(145deg, #1a1a2e, #16213e);
+        }
+
+        #chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            background: #0f3460;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #0f3460;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff;
+            background: #1b262c;
+        }
+
+        #send-button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3282b8;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #send-button:hover {
+            background-color: #0f4c75;
+        }
+
+        .user-message, .bot-message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease-in-out;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            max-width: 80%;
+            word-wrap: break-word;
+            position: relative;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: linear-gradient(145deg, #0f4c75, #3282b8);
+            text-align: right;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background: linear-gradient(145deg, #1b262c, #0f3460);
+        }
+
+        .user-message::after, .bot-message::after {
+            content: '';
+            display: block;
+            position: absolute;
+            background: inherit;
+            filter: blur(20px);
+            opacity: 0.7;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="floating-image" title="Need any help?" onclick="toggleChat()"></div>
+    <div id="chat-container">
+        <div id="chat-box">
+            <div id="chat-log"></div>
+            <div id="chat-input">
+                <input type="text" id="user-input" placeholder="Type your message here..." />
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleChat() {
+            const chatContainer = document.getElementById("chat-container");
+            chatContainer.style.display = chatContainer.style.display === "none" || chatContainer.style.display === "" ? "flex" : "none";
+        }
+
+        document.addEventListener("click", (event) => {
+            const chatContainer = document.getElementById("chat-container");
+            const floatingImage = document.getElementById("floating-image");
+
+            if (!chatContainer.contains(event.target) && event.target !== floatingImage) {
+                chatContainer.style.display = "none";
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const userInput = document.getElementById("user-input");
+            const sendButton = document.getElementById("send-button");
+
+            const predefinedResponses = {
+                "hi": "Hello! How can I help you today?",
+                "hello": "Hi there! What can I do for you?",
+                "what courses do you offer?": "We offer courses in Data Science, AI, and Python programming.",
+                "tell me about the data science course": "Our Data Science course covers Python, Machine Learning, and more.",
+                "what does the ai course cover?": "The AI course includes topics on neural networks, deep learning, and computer vision.",
+                "how do i enroll?": "You can enroll by visiting our enrollment page or contacting our support team.",
+            };
+
+            sendButton.addEventListener("click", () => {
+                const message = userInput.value.trim().toLowerCase();
+                if (message) {
+                    appendMessage("user", message);
+                    respondToMessage(message);
+                    userInput.value = "";
+                }
+            });
+
+            userInput.addEventListener("keypress", (event) => {
+                if (event.key === "Enter") {
+                    sendButton.click();
+                }
+            });
+
+            function respondToMessage(message) {
+                const response = predefinedResponses[message] || "Sorry, I don't understand that question.";
+                setTimeout(() => {
+                    appendMessage("bot", response);
+                }, 1000);
+            }
+
+            function appendMessage(sender, message) {
+                const chatLog = document.getElementById("chat-log");
+                const messageElement = document.createElement("div");
+                messageElement.className = `${sender}-message`;
+                messageElement.textContent = message;
+                chatLog.appendChild(messageElement);
+                chatLog.scrollTop = chatLog.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>

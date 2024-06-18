@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Updated</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #confirmation {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 450px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+
+        .profile-summary {
+            margin: 20px 0;
+        }
+
+        .profile-pic {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border: 3px solid #ced4da;
+            margin-bottom: 20px;
+        }
+
+        .profile-info {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        .profile-info label {
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+            color: #343a40;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="confirmation">
+        <h1>Profile Updated</h1>
+        <div class="profile-summary">
+            <img id="profile-pic" class="profile-pic" src="default-profile.png" alt="Profile Picture">
+            <div class="profile-info">
+                <label>Full Name:</label>
+                <p id="full-name">John Doe</p>
+            </div>
+            <div class="profile-info">
+                <label>Stream:</label>
+                <p id="stream">Science</p>
+            </div>
+            <div class="profile-info">
+                <label>Email:</label>
+                <p id="email">john.doe@example.com</p>
+            </div>
+            <div class="profile-info">
+                <label>Student Phone:</label>
+                <p id="student-phone">123-456-7890</p>
+            </div>
+            <div class="profile-info">
+                <label>Parent Phone:</label>
+                <p id="parent-phone">098-765-4321</p>
+            </div>
+            <div class="profile-info">
+                <label>Address:</label>
+                <p id="address">123 Main St, Hometown, USA</p>
+            </div>
+        </div>
+        <button onclick="window.location.href='student-profile.html'">Edit Profile</button>
+    </div>
+    <script>
+        // Sample updated profile data, this would typically be passed from the previous page or fetched from a backend API
+        const updatedProfileData = {
+            fullName: 'John Doe',
+            stream: 'Science',
+            email: 'john.doe@example.com',
+            studentPhone: '123-456-7890',
+            parentPhone: '098-765-4321',
+            address: '123 Main St, Hometown, USA',
+            profilePic: 'default-profile.png'
+        };
+
+        // Function to load updated profile data into the summary
+        function loadProfileData() {
+            document.getElementById('full-name').textContent = updatedProfileData.fullName;
+            document.getElementById('stream').textContent = updatedProfileData.stream;
+            document.getElementById('email').textContent = updatedProfileData.email;
+            document.getElementById('student-phone').textContent = updatedProfileData.studentPhone;
+            document.getElementById('parent-phone').textContent = updatedProfileData.parentPhone;
+            document.getElementById('address').textContent = updatedProfileData.address;
+            document.getElementById('profile-pic').src = updatedProfileData.profilePic;
+        }
+
+        // Load the updated profile data on page load
+        window.onload = loadProfileData;
+    </script>
+</body>
+</html>

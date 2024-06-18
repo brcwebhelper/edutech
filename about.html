@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System Animation</title>
+    <style>
+         #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: -1;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            margin: 0;
+        }
+       
+
+        .solar-system {
+            position: relative;
+            width: 800px;
+            height: 800px;
+            transform: rotate(45deg);
+        }
+
+        .sun {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+        }
+
+        .sun img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 1px dashed white;
+            border-radius: 50%;
+            transform-origin: center;
+            transform: scaleX(1.5); /* Elliptical shape */
+        }
+
+        .mercury-orbit {
+            width: 150px;
+            height: 150px;
+            margin-left: -75px;
+            margin-top: -75px;
+            animation: rotate 10s linear infinite;
+        }
+
+        .venus-orbit {
+            width: 200px;
+            height: 200px;
+            margin-left: -100px;
+            margin-top: -100px;
+            animation: rotate 20s linear infinite;
+        }
+
+        .earth-orbit {
+            width: 250px;
+            height: 250px;
+            margin-left: -125px;
+            margin-top: -125px;
+            animation: rotate 30s linear infinite;
+        }
+
+        .mars-orbit {
+            width: 300px;
+            height: 300px;
+            margin-left: -150px;
+            margin-top: -150px;
+            animation: rotate 40s linear infinite;
+        }
+
+        .jupiter-orbit {
+            width: 400px;
+            height: 400px;
+            margin-left: -200px;
+            margin-top: -200px;
+            animation: rotate 50s linear infinite;
+        }
+
+        .saturn-orbit {
+            width: 500px;
+            height: 500px;
+            margin-left: -250px;
+            margin-top: -250px;
+            animation: rotate 60s linear infinite;
+        }
+
+        .uranus-orbit {
+            width: 600px;
+            height: 600px;
+            margin-left: -300px;
+            margin-top: -300px;
+            animation: rotate 70s linear infinite;
+        }
+
+        .neptune-orbit {
+            width: 700px;
+            height: 700px;
+            margin-left: -350px;
+            margin-top: -350px;
+            animation: rotate 80s linear infinite;
+        }
+
+        .planet {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+        }
+
+        .planet img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+               /* About section styles */
+        .about-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.5); /* Transparent white */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+            
+        /* Footer styles */
+        footer {
+            display: none; /* Hidden by default */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(45deg, #0a0a23, #1a1a3d);
+            padding: 20px 0;
+            text-align: center;
+            color: #fff;
+            animation: slideUp 1.5s forwards,opacity 0.5s ease-out;;
+        }
+        .footer-visible {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo img {
+            width: 80px;
+            height: auto;
+        }
+
+        .footer-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-nav ul li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .footer-nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-nav ul li a:hover {
+            color: #ff4081;
+        }
+
+        .footer-contact p,
+        .footer-address p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+
+        .footer-animation {
+            position: relative;
+            width: 200px;
+            height: 100px;
+        }
+
+        .ufo, .spaceship {
+            position: absolute;
+            bottom: 0;
+            width: 50px;
+            height: auto;
+            animation: float 4s infinite;
+        }
+
+        .ufo {
+            left: 20%;
+            animation-delay: 0s;
+            height: 100px;
+            width: 100px;
+        }
+
+        .spaceship {
+            right: 20%;
+            
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        /* footer end*/
+
+    </style>
+</head>
+<body>
+    <iframe id="background" src="skyhomebackground.html"></iframe>
+    <div class="solar-system">
+        <div class="sun">
+            <img src="sun.png" alt="Sun">
+        </div>
+        <div class="orbit mercury-orbit">
+            <div class="planet mercury">
+                <img src="solar1.png" alt="Mercury">
+            </div>
+        </div>
+        <div class="orbit venus-orbit">
+            <div class="planet venus">
+                <img src="solar2.png" alt="Venus">
+            </div>
+        </div>
+        <div class="orbit earth-orbit">
+            <div class="planet earth">
+                <img src="solar3.png" alt="Earth">
+            </div>
+        </div>
+        <div class="orbit mars-orbit">
+            <div class="planet mars">
+                <img src="solar4.png" alt="Mars">
+            </div>
+        </div>
+        <div class="orbit jupiter-orbit">
+            <div class="planet jupiter">
+                <img src="solar5.png" alt="Jupiter">
+            </div>
+        </div>
+        <div class="orbit saturn-orbit">
+            <div class="planet saturn">
+                <img src="solar6.png" alt="Saturn">
+            </div>
+        </div>
+        <div class="orbit uranus-orbit">
+            <div class="planet uranus">
+                <img src="solar7.png" alt="Uranus">
+            </div>
+        </div>
+        <div class="orbit neptune-orbit">
+            <div class="planet neptune">
+                <img src="solar8.png" alt="Neptune">
+            </div>
+        </div>
+    </div>
+
+ <!-- About section -->
+    <div class="about-container">
+        <h2>About Us</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod magna vitae nunc posuere, ac dapibus leo tempor.</p>
+    </div>
+
+
+    <!-- Footer Section -->
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="logo.png" alt="Company Logo">
+            </div>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#lms">LMS</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+            <div class="footer-contact">
+                <p>Contact us:</p>
+                <p>(123) 456-7890</p>
+                <p>Email:</p>
+                <p>info@spacetech.com</p>
+            </div>
+            <div class="footer-address">
+                <p>Office Address:</p>
+                <p>123 Space Avenue</p>
+                <p>Galaxy City, GX12345</p>
+            </div>
+            <div class="footer-animation">
+                <img class="ufo" src="footer\UFO2.png" alt="UFO">
+                <img class="spaceship" src="footer\spaceship3.png" alt="Spaceship">
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        
+        // footer starts
+        let lastScrollTop = 0;
+    window.addEventListener('scroll', function() {
+        let footer = document.querySelector('footer');
+        let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        let windowHeight = window.innerHeight;
+        let documentHeight = document.documentElement.scrollHeight;
+
+        if (currentScroll + windowHeight >= documentHeight - 100) {
+            // Near the end of the page
+            footer.classList.add('footer-visible');
+        } else if (currentScroll < lastScrollTop) {
+            // Scrolling up slightly
+            footer.classList.remove('footer-visible');
+        }
+
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For mobile or negative scrolling
+    });
+    // footer ends
+        
+    </script>
+</body>
+</html>

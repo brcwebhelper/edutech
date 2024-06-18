@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Realistic Night Sky with 3D Stars</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #13002e, #121212); /* Dark night sky blue */
+  }
+  canvas {
+    display: block;
+  }
+</style>
+</head>
+<body>
+  <div class = box>
+<canvas id="sky"></canvas>
+
+<script>
+  
+  // Initialize canvas
+  var canvas = document.getElementById('sky');
+  var ctx = canvas.getContext('2d');
+  
+  // Set canvas size
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  
+  // Generate random stars
+  var stars = [];
+  for (var i = 0; i < 200; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 2 + 1, // Adjust star size
+      brightness: Math.random() * 1 + 0.8 // Adjust star brightness
+    });
+  }
+  
+  // Draw stars
+  function drawStars() {
+    for (var i = 0; i < stars.length; i++) {
+      var star = stars[i];
+      var gradient = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, star.radius);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, ' + star.brightness + ')');
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  
+  // Move stars
+  function moveStars() {
+    for (var i = 0; i < stars.length; i++) {
+        stars[i].x -= 0.3; // Increased speed from 0.15 to 0.3
+        if (stars[i].x < 0) {
+            stars[i].x = canvas.width;
+            stars[i].y = Math.random() * canvas.height;
+        }
+    }
+}
+
+  
+  // Animation loop
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawStars();
+    moveStars();
+    requestAnimationFrame(animate);
+  }
+  
+  // Start animation
+  animate();
+</script>
+</body>
+</html>

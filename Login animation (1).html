@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Astronaut</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0);
+            margin: 0;
+            overflow: hidden;
+           
+        }
+
+        .astronaut {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            cursor: pointer;
+            animation: float-astronaut 3s infinite alternate;
+        }
+
+        @keyframes float-astronaut {
+            from {
+                transform: translate(-50%, -50%) translateY(-10px);
+            }
+            to {
+                transform: translate(-50%, -50%) translateY(10px);
+            }
+        }
+
+   
+       
+
+        /* First Planet animation */
+    .planet1 {
+    
+    top: 50%;
+    transform: translateX(400%);
+    padding: 200px 0px;
+    animation: rotate-planet 30s linear infinite;
+}
+
+
+
+
+        @keyframes move-planet {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(100px, 100px);
+            }
+        }
+
+        @keyframes rotate-planet {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+   
+
+    <!-- Astronaut image -->
+    <img class="astronaut" src="C:/Users/rajsi/Downloads/float.png" alt="Astronaut">
+
+    <!-- Planets -->
+    <div class="planet1" style="top: 50%; left: 45%;">
+        <img src="C:\Users\rajsi\Downloads\pngegg.png" alt="Planet 1">
+    </div>
+    <div class="planet planet2" style="top: 60%; left: 40%;">
+        <img src="C:\Users\rajsi\Downloads\(6).png" alt="Planet 2">
+    </div>
+    <div class="planet planet3" style="top: 40%; left: 70%;">
+        <img src="C:\Users\rajsi\Downloads\(4).png" alt="Planet 3">
+    </div>
+
+    <script>
+        // Add event listener to astronaut to move it randomly on click
+        const astronaut = document.querySelector('.astronaut');
+        astronaut.addEventListener('click', () => {
+            const randomX = Math.random() * window.innerWidth;
+            const randomY = Math.random() * window.innerHeight;
+            astronaut.style.top = `${randomY}px`;
+            astronaut.style.left = `${randomX}px`;
+        });
+
+               
+    </script>
+</body>
+</html>
