@@ -129,7 +129,8 @@
     <!-- Signup/Login forms container -->
     <div class="container" id="form-container">
         <h2>Signup</h2>
-        <form action="#" id="signup-form">
+        <form action="backend/signup.php" method="post" id="signup-form">
+            
             <input type="email" name="email" placeholder="Email" required><br>
             <input type="text" name="fullname" placeholder="Full Name" required><br>
             <input type="password" name="password" placeholder="Password" required><br>
@@ -155,8 +156,9 @@
                 var formContainer = document.getElementById('form-container');
                 if (formContainer.innerHTML.includes('Signup')) {
                     formContainer.innerHTML = `
+                    
                         <h2>Login</h2>
-                        <form action="#" id="login-form">
+                        <form action="backend/login.php" method="post" id="login-form">
                             <input type="email" name="email" placeholder="Email" required><br>
                             <input type="password" name="password" placeholder="Password" required><br>
                             <input type="submit" value="Login">
@@ -165,8 +167,9 @@
                     `;
                 } else {
                     formContainer.innerHTML = `
+                  
                         <h2>Signup</h2>
-                        <form action="#" id="signup-form">
+                        <form action="backend/signup.php" method="post" id="signup-form">
                             <input type="email" name="email" placeholder="Email" required><br>
                             <input type="text" name="fullname" placeholder="Full Name" required><br>
                             <input type="password" name="password" placeholder="Password" required><br>
