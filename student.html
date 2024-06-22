@@ -149,16 +149,12 @@
     </div>
 
     <script>
-        // Sample classes data
-        const classes = [
-            { date: '2024-06-07', subject: 'Math', time: '10:00 AM', link: 'https://meet.google.com/math' },
-            { date: '2024-06-08', subject: 'Science', time: '11:00 AM', link: 'https://meet.google.com/science' },
-            { date: '2024-06-09', subject: 'History', time: '09:00 AM', link: 'https://meet.google.com/history' }
-        ];
-
-        // Function to load classes into the timeline
-        function loadClasses() {
+        async function loadClasses() {
+            const response = await fetch('backend/fetch_classes.php');
+            const classes = await response.json();
             const timeline = document.getElementById('class-timeline');
+            timeline.innerHTML = '';
+
             classes.forEach((classData, index) => {
                 const item = document.createElement('div');
                 item.className = `timeline-item ${index % 2 === 0 ? 'left' : 'right'}`;

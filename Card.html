@@ -64,7 +64,7 @@
             const time = document.getElementById('class-time').value;
             const meetLink = document.getElementById('meet-link').value;
 
-            const response = await fetch('/schedule', {
+            const response = await fetch('backend/schedule.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@
         });
 
         async function loadClasses() {
-            const response = await fetch('/classes');
+            const response = await fetch('backend/classes.php');
             const classes = await response.json();
             const classList = document.getElementById('class-list');
             classList.innerHTML = '';
@@ -96,4 +96,3 @@
     </script>
 </body>
 </html>
-
