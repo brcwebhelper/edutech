@@ -177,6 +177,7 @@ $studentId = $_SESSION['id'];
                 item.innerHTML = `
                     <div class="timeline-item-content">
                         <h3>${classData.subject}</h3>
+                        <h4>Class by : ${classData.teacher}</h4>
                         <p><strong>Date:</strong> ${classData.date}</p>
                         <p><strong>Time:</strong> ${classData.time}</p>
                         <a href="${classData.link}" target="_blank" class="join-button">Join Class</a>
