@@ -9,6 +9,17 @@ if (!isset($_SESSION['id'])) {
 
 // Access user data from the session
 $username = $_SESSION['username'];
+
+if(array_key_exists('logout', $_POST)) { 
+    logout(); 
+}
+function logout() { 
+    session_unset();
+    session_destroy();
+    header("Location: http://localhost/edutech/login.html");
+    die();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -70,6 +81,7 @@ $username = $_SESSION['username'];
             <h2>Upcoming Classes</h2>
             <ul id="class-list"></ul>
         </div>
+        <form method="post"> <input type="submit" name="logout" class="logout" value="logout" /> </form> 
     </div>
     <script>
         document.getElementById('schedule-form').addEventListener('submit', async (e) => {

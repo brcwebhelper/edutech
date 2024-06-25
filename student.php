@@ -10,6 +10,15 @@ if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'student') {
 // Access user data from the session
 $username = $_SESSION['username'];
 $studentId = $_SESSION['id'];
+if(array_key_exists('logout', $_POST)) { 
+    logout(); 
+}
+function logout() { 
+    session_unset();
+    session_destroy();
+    header("Location: http://localhost/edutech/login.html");
+    die();
+}
 ?>
 
 <!DOCTYPE html>
@@ -162,9 +171,11 @@ $studentId = $_SESSION['id'];
         <div class="timeline" id="class-timeline">
             <!-- Classes will be dynamically inserted here -->
         </div>
+        <form method="post"> <input type="submit" name="logout" class="logout" value="logout" /> </form> 
     </div>
 
     <script>
+        
         async function loadClasses() {
             const response = await fetch(`backend/fetch_classes.php`);
             const classes = await response.json();
