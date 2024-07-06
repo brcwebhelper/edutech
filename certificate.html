@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrolled Courses</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            position: relative;
+        }
+
+        .course-card {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .course-card:hover {
+            background-color: #0056b3;
+        }
+
+        .video-container {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .quiz-container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .quiz-container h2 {
+            margin-top: 0;
+        }
+
+        .quiz-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quiz-container label {
+            margin: 5px 0;
+        }
+
+        .quiz-container button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .quiz-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .certificate-container {
+            display: none;
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .certificate {
+            border: 2px solid #007BFF;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .certificate h2 {
+            margin: 0 0 10px 0;
+            color: #007BFF;
+        }
+
+        .certificate p {
+            margin: 5px 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .nav-buttons button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        .three-line-menu {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 24px;
+        }
+
+        .three-line-menu div {
+            width: 30px;
+            height: 4px;
+            background-color: #333;
+        }
+
+        .menu-container {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-container ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-container li {
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .menu-container li:hover {
+            background-color: #f0f0f0;
+        }
+
+        .menu-container .locked {
+            color: red;
+        }
+
+        .menu-container .unlocked {
+            color: green;
+        }
+
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .video-controls select {
+            margin-left: 10px;
+            padding: 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="courseListContainer">
+        <h1>Enrolled Courses</h1>
+        <div class="course-card" onclick="openCourse('course1')">
+            <h2>Galactic Exploration</h2>
+            <p>Progress: <span id="progress-course1">0%</span></p>
+        </div>
+    </div>
+
+    <div class="container hidden" id="courseContainer">
+        <div class="nav-buttons">
+            <button onclick="goBackToCourses()">Back to Courses</button>
+            <button onclick="goToPreviousVideo()" id="prevButton" disabled>Previous Video</button>
+        </div>
+        <div class="three-line-menu" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <h1>Galactic Exploration</h1>
+        <div class="menu-container" id="menuContainer">
+            <ul id="videoList">
+                <!-- Video list items will be added here dynamically -->
+            </ul>
+        </div>
+        <div class="video-container">
+            <video id="courseVideo" width="640" height="360" controls onended="showQuiz()" ontimeupdate="checkVideoTime()">
+                <source id="videoSource" src="1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="quiz-container" id="quizContainer">
+            <h2>Quiz</h2>
+            <form id="quizForm">
+                <label for="question">What is the distance from Earth to the Sun?</label><br>
+                <input type="radio" id="answer1" name="question" value="correct">
+                <label for="answer1">93 million miles</label><br>
+                <input type="radio" id="answer2" name="question" value="wrong">
+                <label for="answer2">100 million miles</label><br>
+                <input type="radio" id="answer3" name="question" value="wrong">
+                <label for="answer3">50 million miles</label><br>
+                <button type="button" onclick="submitQuiz()">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="certificate-container" id="certificateContainer">
+        <div class="certificate">
+            <h2>Course Completion Certificate</h2>
+            <p>This is to certify that</p>
+            <p><strong>[Name]</strong></p>
+            <p>has successfully completed the</p>
+            <p><strong>Galactic Exploration</strong></p>
+            <p>course.</p>
+            <p>Date: <span id="completionDate"></span></p>
+        </div>
+        <button onclick="goBackToCourses()">Back to Courses</button>
+    </div>
+
+    <script>
+        let currentVideo = 1;
+        const totalVideos = 5;
+        const videoSources = [
+            '1.mp4', // First video
+            '2.mp4', // Second video
+            '3.mp4', // Third video
+            '4.mp4', // Fourth video
+            '5.mp4'  // Fifth video
+        ];
+        let videoWatched = Array(totalVideos).fill(false);
+
+        function openCourse(courseId) {
+            document.getElementById('courseListContainer').classList.add('hidden');
+            document.getElementById('courseContainer').classList.remove('hidden');
+            updateNavButtons();
+            updateVideoList();
+        }
+
+        function goBackToCourses() {
+            document.getElementById('courseContainer').classList.add('hidden');
+            document.getElementById('certificateContainer').classList.add('hidden');
+            document.getElementById('courseListContainer').classList.remove('hidden');
+            currentVideo = 1;
+            document.getElementById('videoSource').src = videoSources[0];
+            document.getElementById('courseVideo').load();
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('progress-course1').textContent = '0%';
+            updateNavButtons();
+        }
+
+        function goToPreviousVideo() {
+            if (currentVideo > 1) {
+                currentVideo--;
+                document.getElementById('videoSource').src = videoSources[currentVideo - 1];
+                document.getElementById('courseVideo').load();
+                document.getElementById('quizContainer').style.display = 'none';
+                updateNavButtons();
+                updateVideoList();
+            }
+        }
+
+        function showQuiz() {
+            document.getElementById('quizContainer').style.display = 'block';
+            videoWatched[currentVideo - 1] = true;
+        }
+
+        function submitQuiz() {
+            const quizForm = document.getElementById('quizForm');
+            const selectedAnswer = quizForm.querySelector('input[name="question"]:checked');
+
+            if (selectedAnswer && selectedAnswer.value === 'correct') {
+                alert('Correct answer! Proceeding to the next video.');
+                if (currentVideo < totalVideos) {
+                    currentVideo++;
+                    document.getElementById('videoSource').src = videoSources[currentVideo - 1];
+                    document.getElementById('courseVideo').load();
+                    document.getElementById('quizContainer').style.display = 'none';
+                    quizForm.reset();
+                    localStorage.setItem('progress-course1', currentVideo);
+                    document.getElementById('progress-course1').textContent = `${(currentVideo / totalVideos) * 100}%`;
+                    updateNavButtons();
+                    updateVideoList();
+                } else {
+                    showCertificate();
+                }
+            } else {
+                alert('Wrong answer. The correct answer is 93 million miles.');
+            }
+        }
+
+        function updateNavButtons() {
+            document.getElementById('prevButton').disabled = currentVideo === 1;
+        }
+
+        function showCertificate() {
+            document.getElementById('courseContainer').classList.add('hidden');
+            document.getElementById('certificateContainer').style.display = 'block';
+            const date = new Date().toLocaleDateString();
+            document.getElementById('completionDate').textContent = date;
+            localStorage.removeItem('progress-course1');
+        }
+
+        function toggleMenu() {
+            const menuContainer = document.getElementById('menuContainer');
+            menuContainer.style.display = menuContainer.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function updateVideoList() {
+            const videoList = document.getElementById('videoList');
+            videoList.innerHTML = '';
+            for (let i = 1; i <= totalVideos; i++) {
+                const li = document.createElement('li');
+                li.textContent = `Video ${i}`;
+                li.className = i <= currentVideo ? 'unlocked' : 'locked';
+                li.onclick = () => {
+                    if (i <= currentVideo) {
+                        currentVideo = i;
+                        document.getElementById('videoSource').src = videoSources[i - 1];
+                        document.getElementById('courseVideo').load();
+                        document.getElementById('quizContainer').style.display = 'none';
+                        updateNavButtons();
+                        toggleMenu();
+                    }
+                };
+                videoList.appendChild(li);
+            }
+        }
+
+        function checkVideoTime() {
+            const video = document.getElementById('courseVideo');
+            if (!videoWatched[currentVideo - 1] && video.currentTime < video.duration - 30) {
+                video.ontimeupdate = function() {
+                    if (video.currentTime > video.duration - 30) {
+                        video.currentTime = video.duration - 30;
+                    }
+                };
+            } else {
+                video.ontimeupdate = null;
+            }
+        }
+
+        // Update progress on page load
+        window.onload = () => {
+            const progress = localStorage.getItem('progress-course1');
+            if (progress) {
+                currentVideo = parseInt(progress);
+                document.getElementById('progress-course1').textContent = `${(currentVideo / totalVideos) * 100}%`;
+            }
+            updateVideoList();
+        };
+    </script>
+</body>
+</html>

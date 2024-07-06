@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Opportunities</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('space.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .job-opening {
+            display: flex;
+            align-items: center;
+            border: 1px solid #444;
+            border-radius: 8px;
+            margin: 10px 0;
+            padding: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .job-opening img {
+            max-width: 100px;
+            margin-right: 20px;
+            border-radius: 8px;
+        }
+
+        .job-opening:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        .job-description {
+            flex-grow: 1;
+        }
+
+        .job-description h2 {
+            margin: 0;
+            color: #ffd700;
+        }
+
+        .job-description p {
+            margin: 5px 0;
+        }
+
+        .apply-button,
+        .apply-now-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            align-self: flex-start;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .apply-button:hover,
+        .apply-now-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .applied-button {
+            background-color: green;
+            cursor: default;
+        }
+
+        .job-detail {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            animation: fadeIn 2s;
+        }
+
+        .application-form {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            animation: fadeIn 2s;
+        }
+
+        .application-form h2 {
+            margin-top: 0;
+        }
+
+        .application-form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .application-form input[type="text"],
+        .application-form input[type="email"],
+        .application-form input[type="file"],
+        .application-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .application-form button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .application-form button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+        #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="background" src="skyhomebackground.html"></iframe>
+    <div class="container">
+        <h1>Career Opportunities</h1>
+        <div class="job-opening" data-job-id="1">
+            <img src="Digital Markiting  logo.jpeg" alt="Digital Marketing Image">
+            <div class="job-description">
+                <h2>Digital Marketing</h2>
+                <button class="apply-button" onclick="showJobDetail(1, this)">Apply</button>
+            </div>
+        </div>
+        <div class="job-opening" data-job-id="2">
+            <img src="Sales 2.jpeg" alt="Sales Executives Image">
+            <div class="job-description">
+                <h2>Sales Executives</h2>
+                <button class="apply-button" onclick="showJobDetail(2, this)">Apply</button>
+            </div>
+        </div>
+        <div class="job-opening" data-job-id="3">
+            <img src="HR logo.jpeg" alt="HR Image">
+            <div class="job-description">
+                <h2>HR</h2>
+                <button class="apply-button" onclick="showJobDetail(3, this)">Apply</button>
+            </div>
+        </div>
+        <div class="job-opening" data-job-id="4">
+            <img src="Operations logo.jpeg" alt="Operations Image">
+            <div class="job-description">
+                <h2>Operations</h2>
+                <button class="apply-button" onclick="showJobDetail(4, this)">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container job-detail" id="jobDetail">
+        <h2>Job Description</h2>
+        <p id="jobDescriptionText"></p>
+        <button class="apply-now-button" onclick="showApplicationForm()">Apply Now</button>
+    </div>
+
+    <div class="container application-form" id="applicationForm">
+        <h2>Application Form</h2>
+        <form id="jobApplicationForm" onsubmit="submitApplication(event)">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="text" id="phone" name="phone" required>
+
+            <label for="resume">Upload Resume</label>
+            <input type="file" id="resume" name="resume" required>
+
+            <label for="coverLetter">Cover Letter</label>
+            <textarea id="coverLetter" name="coverLetter" rows="5"></textarea>
+
+            <button type="submit">Submit Application</button>
+        </form>
+    </div>
+
+    <script>
+        let currentButton;
+        let jobDescriptions = {
+            1: 'We are looking for a talented Digital Marketing Specialist to join our team. You will be responsible for creating and managing digital marketing campaigns across various platforms.',
+            2: 'We are hiring Sales Executives to join our dynamic sales team. You will be responsible for driving sales and building strong customer relationships.',
+            3: 'Join our HR team to help us manage recruitment, employee relations, and other HR functions. Experience in HR management is preferred.',
+            4: 'We are seeking an Operations Manager to oversee our daily operations and ensure our business runs smoothly. Experience in operations management is required.'
+        };
+
+        function showJobDetail(jobId, button) {
+            document.getElementById('jobDetail').style.display = 'block';
+            document.getElementById('jobDescriptionText').innerText = jobDescriptions[jobId];
+            currentButton = button;
+        }
+
+        function showApplicationForm() {
+            document.getElementById('applicationForm').style.display = 'block';
+        }
+
+        function submitApplication(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            // Here you would typically send the form data to your server using an AJAX request.
+            // For example:
+            // fetch('submit-application-url', {
+            //     method: 'POST',
+            //     body: formData
+            // }).then(response => response.json())
+            //   .then(data => {
+            //       console.log('Success:', data);
+            //       alert('Application submitted successfully!');
+            //   })
+            //   .catch(error => {
+            //       console.error('Error:', error);
+            //       alert('There was an error submitting your application.');
+            //   });
+
+            alert('Application submitted successfully!');
+            form.reset();
+            document.getElementById('applicationForm').style.display = 'none';
+            currentButton.classList.add('applied-button');
+            currentButton.textContent = 'Applied';
+            currentButton.disabled = true;
+        }
+    </script>
+</body>
+</html>
